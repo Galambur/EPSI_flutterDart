@@ -33,27 +33,52 @@ class _PizzaListState extends State<PizzaList> {
   }
 
   _buildRow(Pizza pizza) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListTile(
-          title: Text(pizza.title),
-          subtitle: Text(pizza.garniture),
-          leading: Icon(Icons.local_pizza),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom:Radius.circular(10.0), top: Radius.circular(2.0)),
         ),
-        Image.asset(
-          'assets/images/pizzas/${pizza.image}',
-          height: 120,
-          fit: BoxFit.fitWidth,
-        ),
-        Text(pizza.garniture),
-        ElevatedButton(
-          child: Text("Commander"),
-          onPressed: () {
-            print('Commander une pizza');
-          },
-        )
-      ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Text(pizza.title),
+            subtitle: Container(
+              padding: const EdgeInsets.all(4.0),
+              child: Text(pizza.garniture),
+            ),
+            leading: Icon(Icons.local_pizza),
+          ),
+          Image.asset(
+            'assets/images/pizzas/${pizza.image}',
+            height: 120,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.fitWidth,
+          ),
+          Text(pizza.garniture),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.red.shade800),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.shopping_cart),
+                    SizedBox(width: 5),
+                    Text("Commander"),
+                  ],
+                ),
+                onPressed: () {
+                  print('Commander une pizza');
+                },
+              )
+            ],
+          )
+        ],
+      )
     );
   }
 }
