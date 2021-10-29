@@ -26,9 +26,34 @@ class _PizzaListState extends State<PizzaList> {
         padding: const EdgeInsets.all(8.0),
         itemCount: _pizzas.length,
         itemBuilder: (context, index) {
-          return Text(_pizzas[index].title);
+          return _buildRow(_pizzas[index]);
         },
       )
+    );
+  }
+
+  _buildRow(Pizza pizza) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ListTile(
+          title: Text(pizza.title),
+          subtitle: Text(pizza.garniture),
+          leading: Icon(Icons.local_pizza),
+        ),
+        Image.asset(
+          'assets/images/pizzas/${pizza.image}',
+          height: 120,
+          fit: BoxFit.fitWidth,
+        ),
+        Text(pizza.garniture),
+        ElevatedButton(
+          child: Text("Commander"),
+          onPressed: () {
+            print('Commander une pizza');
+          },
+        )
+      ],
     );
   }
 }
