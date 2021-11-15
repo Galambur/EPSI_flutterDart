@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/models/option_item.dart';
 import 'package:pizzeria/models/pizza.dart';
+import 'package:pizzeria/ui/share/appbar_widget.dart';
 import 'package:pizzeria/ui/share/buy_button_widget.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
 import 'package:pizzeria/ui/share/total_widget.dart';
 
 class PizzaDetails extends StatefulWidget {
   final Pizza _pizza;
+  final Cart _cart;
 
-  PizzaDetails(this._pizza, {Key? key}) : super(key: key);
+  PizzaDetails(this._pizza, this._cart, {Key? key}) : super(key: key);
 
   @override
   _PizzaDetailsState createState() => _PizzaDetailsState();
@@ -19,9 +22,7 @@ class _PizzaDetailsState extends State<PizzaDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget._pizza.title),
-      ),
+      appBar: AppBarWidget(widget._pizza.title, widget._cart),
       body: ListView(
         padding: EdgeInsets.all(4.0),
         children: [
@@ -58,7 +59,7 @@ class _PizzaDetailsState extends State<PizzaDetails> {
           ),
           _buildDropDownSauces(),
           TotalWidget(widget._pizza.total),
-          BuyButtonWidget(),
+          BuyButtonWidget(widget._pizza, widget._cart),
         ],
       )
     );
