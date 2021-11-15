@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pizzeria/models/pizza.dart';
 import 'package:pizzeria/models/pizza_data.dart';
 import 'package:pizzeria/ui/pizza_details.dart';
+import 'package:pizzeria/ui/share/buy_button_widget.dart';
 
 class PizzaList extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class _PizzaListState extends State<PizzaList> {
               },
               child: _buildPizzaDetails(pizza),
             ),
-            _buildBuyButton()
+            BuyButtonWidget()
           ],
         )
     );
