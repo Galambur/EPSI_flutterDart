@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pizzeria/models/pizza.dart';
 import 'package:pizzeria/ui/share/buy_button_widget.dart';
+import 'package:pizzeria/ui/share/pizzeria_style.dart';
 
 class PizzaDetails extends StatefulWidget {
   final Pizza _pizza;
@@ -22,17 +23,26 @@ class _PizzaDetailsState extends State<PizzaDetails> {
       body: ListView(
         padding: EdgeInsets.all(4.0),
         children: [
-          Text(widget._pizza.title),
+          Text(
+            'Pizza ${widget._pizza.title}',
+            style: PizzeriaStyle.pageTitleTextStyle,
+          ),
           Image.asset(
             'assets/images/pizzas/${widget._pizza.image}',
             height: 180,
           ),
-          Text('Recette'),
+          Text(
+            'Recette',
+            style: PizzeriaStyle.headerTextStyle,
+          ),
           Padding(
             padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
             child: Text(widget._pizza.garniture),
           ),
-          Text('Pâte et taille sélectionnées'),
+          Text(
+            'Pâte et taille sélectionnées',
+            style: PizzeriaStyle.headerTextStyle,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -40,7 +50,10 @@ class _PizzaDetailsState extends State<PizzaDetails> {
               Expanded(child: Text('La sauce')),
             ],
           ),
-          Text('Sauces sélectionnées'),
+          Text(
+            'Sauces sélectionnées',
+            style: PizzeriaStyle.headerTextStyle,
+          ),
           Text('Les sauces'),
           Text('${widget._pizza.price}€'),
           BuyButtonWidget(),
