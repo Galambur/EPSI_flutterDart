@@ -25,8 +25,18 @@ class Pizza {
 
   static final List<OptionItem> sauces = [
     OptionItem(0, "Base sauce tomate"),
-    OptionItem(0, "Sauce samourai", supplement: 2),
+    OptionItem(1, "Sauce samourai", supplement: 2),
   ];
+
+  double get total {
+    double total = price;
+
+    total+= pates[pate].supplement;
+    total+= tailles[taille].supplement;
+    total+= sauces[sauce].supplement;
+
+    return total;
+  }
 
   Pizza(this.id, this.title, this.garniture, this.image, this.price);
 }

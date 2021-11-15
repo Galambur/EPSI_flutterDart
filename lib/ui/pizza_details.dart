@@ -4,6 +4,7 @@ import 'package:pizzeria/models/option_item.dart';
 import 'package:pizzeria/models/pizza.dart';
 import 'package:pizzeria/ui/share/buy_button_widget.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
+import 'package:pizzeria/ui/share/total_widget.dart';
 
 class PizzaDetails extends StatefulWidget {
   final Pizza _pizza;
@@ -56,8 +57,7 @@ class _PizzaDetailsState extends State<PizzaDetails> {
             style: PizzeriaStyle.headerTextStyle,
           ),
           _buildDropDownSauces(),
-          Text('Les sauces'),
-          Text('${widget._pizza.price}€'),
+          TotalWidget(widget._pizza.total),
           BuyButtonWidget(),
         ],
       )
