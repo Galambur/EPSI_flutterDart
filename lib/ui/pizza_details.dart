@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pizzeria/models/option_item.dart';
 import 'package:pizzeria/models/pizza.dart';
 import 'package:pizzeria/ui/share/buy_button_widget.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
@@ -46,20 +47,70 @@ class _PizzaDetailsState extends State<PizzaDetails> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(child: Text('La pâte')),
-              Expanded(child: Text('La sauce')),
+              Expanded(child: _buildDropDownPates()),
+              Expanded(child: _buildDropDownTailles()),
             ],
           ),
           Text(
             'Sauces sélectionnées',
             style: PizzeriaStyle.headerTextStyle,
           ),
+          _buildDropDownSauces(),
           Text('Les sauces'),
           Text('${widget._pizza.price}€'),
           BuyButtonWidget(),
         ],
       )
     );
+  }
+
+  _buildDropDownPates(){
+    return DropdownButton<OptionItem>(
+      isExpanded: true,
+      value: Pizza.pates[widget._pizza.pate],
+      items: _buildDropDownItems(Pizza.pates),
+      onChanged: (item) {
+        setState(() {
+          widget._pizza.pate = item!.value;
+        });
+      },
+    );
+  }
+
+  _buildDropDownTailles(){
+    return DropdownButton<OptionItem>(
+      isExpanded: true,
+      value: Pizza.tailles[widget._pizza.taille],
+      items: _buildDropDownItems(Pizza.tailles),
+      onChanged: (item) {
+        setState(() {
+          widget._pizza.taille = item!.value;
+        });
+      },
+    );
+  }
+
+  _buildDropDownSauces(){
+    return DropdownButton<OptionItem>(
+      isExpanded: true,
+      value: Pizza.sauces[widget._pizza.sauce],
+      items: _buildDropDownItems(Pizza.sauces),
+      onChanged: (item) {
+        setState(() {
+          widget._pizza.sauce = item!.value;
+        });
+      },
+    );
+  }
+
+  _buildDropDownItems(List<OptionItem> list){
+    return Iterable.generate(
+      list.length,
+        (i) => DropdownMenuItem<OptionItem>(
+          value: list[i],
+          child: Text(list[i].name),
+        ),
+    ).toList();
   }
 
   /*_buildBuyButton() {
