@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:pizzeria/models/pizza.dart';
 
 class CartItem {
@@ -26,6 +28,15 @@ class Cart {
       CartItem item = _items[index];
       item.quantity++;
     }
+  }
+
+  void removeOneProduct(Pizza pizza){
+    int index = findCartItemIndex(pizza.id);
+
+    CartItem item = _items[index];
+    item.quantity--;
+    if(item.quantity < 1)
+      removeProduct(pizza);
   }
 
   void removeProduct(Pizza pizza){

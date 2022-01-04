@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
 
@@ -12,14 +13,7 @@ class Panier extends StatefulWidget {
 }
 
 class _PanierState extends State<Panier> {
-  double tva = 0.0;
-
-  setTva(){
-    setState(() {
-      tva = widget._cart.totalItems() / 100 * 20;
-    });
-    return tva;
-  }
+  var formatter = NumberFormat("####.00 €");
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +41,20 @@ class _PanierState extends State<Panier> {
                 children: [
                   TableRow(
                     children: [
-                      TableCell(child: Text('TOTL HT', style: PizzeriaStyle.priceSubTotalTextStyle)),
-                      TableCell(child: Text('${(widget._cart.getPrixTotalHt())} €', style: PizzeriaStyle.priceSubTotalTextStyle))
+                      TableCell(child: Text('TOTAL HT', style: PizzeriaStyle.priceSubTotalTextStyle)),
+                      TableCell(child: Text('${formatter.format(widget._cart.getPrixTotalHt())}', style: PizzeriaStyle.priceSubTotalTextStyle))
                     ]
                   ),
                   TableRow(
                     children: [
                       TableCell(child: Text('TVA', style: PizzeriaStyle.priceSubTotalTextStyle)),
-                      TableCell(child: Text('${(widget._cart.getTva(widget._cart.getPrixTotalHt()))} €', style: PizzeriaStyle.priceSubTotalTextStyle))
+                      TableCell(child: Text('${formatter.format(widget._cart.getTva(widget._cart.getPrixTotalHt()))}', style: PizzeriaStyle.priceSubTotalTextStyle))
                     ]
                   ),
                   TableRow(
                     children: [
                       TableCell(child: Text('TOTAL TTC', style: PizzeriaStyle.priceTotalTextStyle)),
-                      TableCell(child: Text('${(widget._cart.getPrixTotalTTC())} €', style: PizzeriaStyle.priceTotalTextStyle))
+                      TableCell(child: Text('${formatter.format(widget._cart.getPrixTotalTTC())}', style: PizzeriaStyle.priceTotalTextStyle))
                     ]
                   )
                 ],
@@ -84,50 +78,54 @@ class _PanierState extends State<Panier> {
       )
     );
   }
+
+  Widget _buildItem(CartItem cartItem){
+    return Row(
+      children: [
+        Image.asset(
+          'assets/images/pizzas/${cartItem.pizza.image}',
+          //height: 120,
+          width: 100.0,
+          //fit: BoxFit.fitWidth,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              cartItem.pizza.title,
+              style: PizzeriaStyle.baseTextStyle,
+            ),
+            Text('${cartItem.pizza.total} €'),
+            Text(
+              'Sous total : ${cartItem.quantity * cartItem.pizza.total} €',
+              style: PizzeriaStyle.priceSubTotalTextStyle,
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget._cart.removeOneProduct(cartItem.pizza);
+                  });
+                },
+                child: Icon(Icons.remove_rounded)
+            ),
+            Text(cartItem.quantity.toString()),
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    widget._cart.addProduct(cartItem.pizza);
+                  });
+                },
+                child: Icon(Icons.add_rounded)
+            )
+          ],
+        )
+      ],
+    );
+  }
 }
 
-Widget _buildItem(CartItem cartItem){
-  return Row(
-    children: [
-      Image.asset(
-        'assets/images/pizzas/${cartItem.pizza.image}',
-        //height: 120,
-        width: 100.0,
-        //fit: BoxFit.fitWidth,
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            cartItem.pizza.title,
-            style: PizzeriaStyle.baseTextStyle,
-          ),
-          Text('${cartItem.pizza.total} €'),
-          Text(
-            'Sous total : ${cartItem.quantity * cartItem.pizza.total}',
-            style: PizzeriaStyle.priceSubTotalTextStyle,
-          ),
-        ],
-      ),
-      Row(
-        children: [
-          IconButton(
-              onPressed: (){
-                cartItem.quantity--;
-                print(cartItem.quantity);
-              },
-              icon: Icon(Icons.remove_circle_outline)
-          ),
-          Text(cartItem.quantity.toString()),
-          IconButton(
-              onPressed: () {
-                cartItem.quantity++;
-                print(cartItem.quantity);
-              },
-              icon: Icon(Icons.add_circle_outline)
-          ),
-        ],
-      )
-    ],
-  );
-}
+
