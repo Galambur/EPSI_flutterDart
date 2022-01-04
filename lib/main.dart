@@ -59,7 +59,7 @@ class MyHomePage extends StatelessWidget {
               case 2 :
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PizzaList(_cart)),
+                  MaterialPageRoute(builder: (context) => PizzaList()),
                 );
                 break;
             }
