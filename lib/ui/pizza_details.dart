@@ -31,7 +31,7 @@ class _PizzaDetailsState extends State<PizzaDetails> {
             style: PizzeriaStyle.pageTitleTextStyle,
           ),
           Image.asset(
-            'assets/images/pizzas/${widget._pizza.image}',
+            widget._pizza.image,
             height: 180,
           ),
           Text(
