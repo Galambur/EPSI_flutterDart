@@ -3,10 +3,17 @@ import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/models/menu.dart';
 import 'package:pizzeria/ui/pizza_list.dart';
 import 'package:pizzeria/ui/share/appbar_widget.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Cart(),
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

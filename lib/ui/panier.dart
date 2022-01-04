@@ -107,7 +107,7 @@ class _PanierState extends State<Panier> {
             GestureDetector(
                 onTap: () {
                   setState(() {
-                    widget._cart.removeOneProduct(cartItem.pizza);
+                    widget._cart.removeProduct(cartItem.pizza);
                   });
                 },
                 child: Icon(Icons.remove_rounded)
