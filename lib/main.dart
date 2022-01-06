@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/models/menu.dart';
+import 'package:pizzeria/ui/panier.dart';
 import 'package:pizzeria/ui/pizza_list.dart';
 import 'package:pizzeria/ui/share/appbar_widget.dart';
+import 'package:pizzeria/ui/share/bottom_navigation_bar_widget.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,6 +28,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: {
+        '/liste': (context) => PizzaList(),
+        '/panier': (context) => Panier(),
+        '/profil': (context) => MyHomePage(title: 'Profil'),
+      },
       home: MyHomePage(title: 'Notre pizzeria'),
     );
   }
@@ -69,6 +76,7 @@ class MyHomePage extends StatelessWidget {
         itemExtent: 180,
       ),
     ),
+    bottomNavigationBar: BottomNavigationBarWidget(2),
   );
   }
 

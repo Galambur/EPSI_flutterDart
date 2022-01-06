@@ -32,7 +32,7 @@ class Cart extends ChangeNotifier{
     notifyListeners();
   }
 
-  void removeProduct(Pizza pizza){
+  void removeOneProduct(Pizza pizza){
     int index = findCartItemIndex(pizza.id);
 
     CartItem item = _items[index];
@@ -40,6 +40,13 @@ class Cart extends ChangeNotifier{
     if(item.quantity < 1)
       removeProduct(pizza);
     notifyListeners();
+  }
+
+  void removeProduct(Pizza pizza){
+    int index = findCartItemIndex(pizza.id);
+    if(index != -1) {
+      _items.removeAt(index);
+    }
   }
 
   int findCartItemIndex(int id){

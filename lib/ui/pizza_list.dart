@@ -5,6 +5,7 @@ import 'package:pizzeria/models/pizza.dart';
 import 'package:pizzeria/services/pizza_service.dart';
 import 'package:pizzeria/ui/pizza_details.dart';
 import 'package:pizzeria/ui/share/appbar_widget.dart';
+import 'package:pizzeria/ui/share/bottom_navigation_bar_widget.dart';
 import 'package:pizzeria/ui/share/buy_button_widget.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class _PizzaListState extends State<PizzaList> {
             return Center(child: CircularProgressIndicator());
           },
         ),
+      bottomNavigationBar: BottomNavigationBarWidget(2),
     );
   }
 

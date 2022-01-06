@@ -5,7 +5,8 @@ import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/ui/share/pizzeria_style.dart';
 import 'package:provider/provider.dart';
 
-class _CartTotal extends StatelessWidget {
+
+class CartTotal extends StatelessWidget {
   var format = NumberFormat("####.00 €");
 
   @override
@@ -16,6 +17,7 @@ class _CartTotal extends StatelessWidget {
       child: Consumer<Cart>(
         builder: (context, cart, child) {
           final double _total = cart.getPrixTotalTTC();
+          print(_total);
 
           if(_total == 0){
             return Center(

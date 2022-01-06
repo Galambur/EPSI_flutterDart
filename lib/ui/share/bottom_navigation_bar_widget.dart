@@ -6,7 +6,7 @@ import 'package:badges/badges.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   final int indexSelected;
-  const BottomNavigationBarWidget(this.indexSelected, {Key? key}) :super(key: key);
+  const BottomNavigationBarWidget(this.indexSelected, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
@@ -43,8 +43,11 @@ class BottomNavigationBarWidget extends StatelessWidget {
       onTap: (index) {
         String page = '/';
         switch (index) {
+          case 1 :
+            page = '/liste';
+            break;
           case 2 :
-            page = 'panier';
+            page = '/panier';
             break;
           case 3 :
             page = '/profil';

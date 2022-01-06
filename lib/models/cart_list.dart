@@ -5,7 +5,7 @@ import 'package:pizzeria/ui/share/pizzeria_style.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-class _CartList extends StatelessWidget {
+class CartList extends StatelessWidget {
   var format = NumberFormat("####.00 €");
 
   @override
@@ -45,7 +45,7 @@ class _CartList extends StatelessWidget {
           children: [
             IconButton(
                 onPressed: (){
-                  cart.removeProduct(cartItem.pizza);
+                  cart.removeOneProduct(cartItem.pizza);
                 },
                 icon: Icon(Icons.remove_circle_outline)
             ),
