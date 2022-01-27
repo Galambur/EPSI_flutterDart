@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:pizzeria/models/cart.dart';
 import 'package:pizzeria/models/menu.dart';
+import 'package:pizzeria/ui/panier.dart';
 import 'package:pizzeria/ui/pizza_list.dart';
+import 'package:pizzeria/ui/share/appbar_widget.dart';
+import 'package:pizzeria/ui/share/bottom_navigation_bar_widget.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => Cart(),
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -17,6 +28,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: {
+        '/liste': (context) => PizzaList(),
+        '/panier': (context) => Panier(),
+        '/profil': (context) => MyHomePage(title: 'Profil'),
+      },
       home: MyHomePage(title: 'Notre pizzeria'),
     );
   }
@@ -24,7 +40,11 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   String title;
-  MyHomePage({required this.title, Key? key}) : super(key: key);
+  Cart _cart;
+
+  MyHomePage({required this.title, Key? key}) :
+        _cart = Cart(),
+        super(key: key);
 
   var _menus = [
     Menu(1, 'Entrées', 'entree.png', Colors.lightGreen),
@@ -36,9 +56,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(
-      title: Text(title),
-    ),
+    appBar: AppBarWidget(title, _cart),
     body: Center(
       child: ListView.builder(
         itemCount: _menus.length,
@@ -58,6 +76,7 @@ class MyHomePage extends StatelessWidget {
         itemExtent: 180,
       ),
     ),
+    bottomNavigationBar: BottomNavigationBarWidget(2),
   );
   }
 
